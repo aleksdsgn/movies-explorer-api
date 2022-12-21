@@ -1,0 +1,30 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "Сервис, в котором можно найти фильмы по запросу и сохранить в личном кабинете",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aleksdsgn/movies-explorer-api.git"
+  },
+  "keywords": [
+    "фильм",
+    "кино",
+    "любимые",
+    "фильмы",
+    "movies",
+    "cinema",
+    "kinopoisk",
+    "favorite",
+    "movies"
+  ],
+  "author": "Aleksey Shlyapnikov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aleksdsgn/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/aleksdsgn/movies-explorer-api#readme"
+}

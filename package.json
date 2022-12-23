@@ -1,6 +1,7 @@
 {
   "name": "movies-explorer-api",
   "version": "1.0.0",
+  "type": "module",
   "description": "Сервис, в котором можно найти фильмы по запросу и сохранить в личном кабинете",
   "main": "app.js",
   "scripts": {

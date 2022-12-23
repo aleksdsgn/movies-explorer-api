@@ -30,7 +30,7 @@ const movieSchema = new mongoose.Schema({
       message: (props) => `${props.value} Проверьте корректность ссылки`,
     },
   },
-  trailerLink: {
+  trailer: {
     type: String,
     required: true,
     validate: {

@@ -8,6 +8,7 @@ import { constants } from 'http2';
 import { errors } from 'celebrate';
 import { router } from './routes/index.js';
 import { requestLogger, errorLogger } from './middlewares/logger.js';
+import { limiter } from './middlewares/limiter.js';
 
 // обработка необработанных ошибок
 process.on('unhandledRejection', (err) => {
@@ -26,6 +27,8 @@ const config = dotenv.config({
 const app = express();
 
 app.use(helmet());
+
+app.use(limiter);
 
 app.use(cors({
   origin: '*',

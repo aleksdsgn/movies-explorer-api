@@ -26,10 +26,6 @@ router.post('/signup', celebrateBodyUser, register);
 router.use('/users', auth, userRouter);
 router.use('/movies', auth, movieRouter);
 
-// router.get('/signout', (req, res) => {
-//   res.clearCookie('jwt').send({ message: 'Выход' });
-// });
-
 // обработка неправильного пути
 router.use('*', auth, (req, res, next) => {
   next(new NotFoundError('Путь не найден'));

@@ -17,6 +17,6 @@
 ## Доступ
 
 * IP 158.160.18.147
-* Backend api.movies.aleksdsgn.nomoredomains.club
-* Frontend movies.aleksdsgn.nomoredomains.club
+* Backend https://api.movies.aleksdsgn.nomoredomains.club
+* Frontend https://movies.aleksdsgn.nomoredomains.club
 * Репезиторий на github https://github.com/aleksdsgn/movies-explorer-api

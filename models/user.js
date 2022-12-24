@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { emailRegex } from '../validators/common.js';
+import { UnauthorizedError } from '../errors/UnauthorizedError.js';
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -31,13 +32,13 @@ userSchema.statics.findUserByCredentials = function findUser(email, password) {
     .then((document) => {
       // не нашёлся — отклоняем промис
       if (!document) {
-        // throw new UnauthorizedError('Неправильные почта или пароль');
+        throw new UnauthorizedError('Неправильные почта или пароль');
       }
       // нашёлся — сравниваем хеши
       return bcrypt.compare(password, document.password)
         .then((matched) => {
           if (!matched) {
-            // throw new UnauthorizedError('Неправильные почта или пароль');
+            throw new UnauthorizedError('Неправильные почта или пароль');
           }
 
           const user = document.toObject();

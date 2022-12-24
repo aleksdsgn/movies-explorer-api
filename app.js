@@ -1,4 +1,5 @@
 import express from 'express';
+import helmet from 'helmet';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
@@ -23,6 +24,8 @@ const config = dotenv.config({
 }).parsed;
 
 const app = express();
+
+app.use(helmet());
 
 app.use(cors({
   origin: '*',

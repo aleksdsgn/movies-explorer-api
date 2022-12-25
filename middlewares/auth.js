@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { UnauthorizedError } from '../errors/UnauthorizedError.js';
+import { errorMessages } from '../errors/messages.js';
 
 export const auth = (req, res, next) => {
   // достаём авторизационный заголовок
@@ -7,7 +8,7 @@ export const auth = (req, res, next) => {
 
   // убеждаемся, что он есть или начинается с Bearer
   if (!authorization) {
-    next(new UnauthorizedError('Необходима авторизация'));
+    next(new UnauthorizedError(errorMessages.authorizationReq));
     return;
   }
   // извлечём токен
@@ -20,7 +21,7 @@ export const auth = (req, res, next) => {
     payload = jwt.verify(token, JWT_SECRET);
   } catch (err) {
     // отправим ошибку, если не получилось
-    next(new UnauthorizedError('Токен не верифицирован'));
+    next(new UnauthorizedError(errorMessages.tokenNotVerified));
   }
   // записываем пейлоуд в объект запроса
   req.user = payload;

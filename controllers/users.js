@@ -5,6 +5,7 @@ import { ServerError } from '../errors/ServerError.js';
 import { NotFoundError } from '../errors/NotFoundError.js';
 import { BadRequestError } from '../errors/BadRequestError.js';
 import { ConflictError } from '../errors/ConflictError.js';
+import { errorMessages } from '../errors/messages.js';
 
 // получить информацию о текущем пользователе
 export const getCurrentUser = (req, res, next) => {
@@ -13,14 +14,14 @@ export const getCurrentUser = (req, res, next) => {
       if (user) {
         res.send(user);
       } else {
-        next(new NotFoundError('Пользователь не найден'));
+        next(new NotFoundError(errorMessages.userNotFound));
       }
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError('Переданы некорректные данные'));
+        next(new BadRequestError(errorMessages.badRequest));
       } else {
-        next(new ServerError('Произошла ошибка на сервере'));
+        next(new ServerError(errorMessages.serverError));
       }
     });
 };
@@ -44,12 +45,12 @@ export const register = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные'));
+        next(new BadRequestError(errorMessages.badRequest));
         // проверка на пользователя с существующим email в БД
       } else if (err.code === 11000) {
-        next(new ConflictError('Такой email уже зарегистрирован'));
+        next(new ConflictError(errorMessages.userConflict));
       } else {
-        next(new ServerError('Произошла ошибка на сервере'));
+        next(new ServerError(errorMessages.serverError));
       }
     });
 };
@@ -84,14 +85,14 @@ export const updateUser = (req, res, next) => {
       if (user) {
         res.send(user);
       } else {
-        next(new NotFoundError('Пользователь не найден.'));
+        next(new NotFoundError(errorMessages.userNotFound));
       }
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные'));
+        next(new BadRequestError(errorMessages.badRequest));
       } else {
-        next(new ServerError('Произошла ошибка на сервере'));
+        next(new ServerError(errorMessages.serverError));
       }
     });
 };

@@ -23,7 +23,7 @@ export const schemaObjectMovie = Joi.object({
   nameRU: Joi.string().required(),
   nameEN: Joi.string().required(),
   thumbnail: schemeURL.required(),
-  movieId: schemeObjectId.required(),
+  movieId: Joi.number().required(),
 });
 
 // сегменты из схем

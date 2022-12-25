@@ -4,11 +4,11 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import { constants } from 'http2';
 import { errors } from 'celebrate';
 import { router } from './routes/index.js';
 import { requestLogger, errorLogger } from './middlewares/logger.js';
 import { limiter } from './middlewares/limiter.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 
 // обработка необработанных ошибок
 process.on('unhandledRejection', (err) => {
@@ -52,12 +52,7 @@ app.use(errorLogger);
 app.use(errors());
 
 // централизованный обработчик ошибок
-app.use((err, req, res, next) => {
-  const status = err.statusCode || constants.HTTP_STATUS_INTERNAL_SERVER_ERROR;
-  const message = err.message || 'Произошла неизвестная ошибка';
-  res.status(status).send({ message });
-  next();
-});
+app.use(errorHandler);
 
 mongoose.connect(config.DB_URL);
 

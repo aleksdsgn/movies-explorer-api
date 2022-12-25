@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { emailRegex } from '../validators/common.js';
 import { UnauthorizedError } from '../errors/UnauthorizedError.js';
+import { errorMessages } from '../errors/messages.js';
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -16,7 +17,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: (value) => emailRegex.test(value),
-      message: (props) => `${props.value} Проверьте правильность написания почты`,
+      message: (props) => `${props.value} ${errorMessages.checkEmail}`,
     },
   },
   password: {
@@ -32,13 +33,13 @@ userSchema.statics.findUserByCredentials = function findUser(email, password) {
     .then((document) => {
       // не нашёлся — отклоняем промис
       if (!document) {
-        throw new UnauthorizedError('Неправильные почта или пароль');
+        throw new UnauthorizedError(errorMessages.incorrectEmailOrPassword);
       }
       // нашёлся — сравниваем хеши
       return bcrypt.compare(password, document.password)
         .then((matched) => {
           if (!matched) {
-            throw new UnauthorizedError('Неправильные почта или пароль');
+            throw new UnauthorizedError(errorMessages.incorrectEmailOrPassword);
           }
 
           const user = document.toObject();

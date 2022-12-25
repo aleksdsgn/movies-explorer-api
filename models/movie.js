@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { linkRegex } from '../validators/common.js';
+import { errorMessages } from '../errors/messages.js';
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -27,7 +28,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (value) => linkRegex.test(value),
-      message: (props) => `${props.value} Проверьте корректность ссылки`,
+      message: (props) => `${props.value} ${errorMessages.checkLink}`,
     },
   },
   trailer: {
@@ -35,7 +36,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (value) => linkRegex.test(value),
-      message: (props) => `${props.value} Проверьте корректность ссылки`,
+      message: (props) => `${props.value} ${errorMessages.checkLink}`,
     },
   },
   thumbnail: {
@@ -43,7 +44,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (value) => linkRegex.test(value),
-      message: (props) => `${props.value} Проверьте корректность ссылки`,
+      message: (props) => `${props.value} ${errorMessages.checkLink}`,
     },
   },
   owner: {
@@ -52,7 +53,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   movieId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
     ref: 'user',
     required: true,
   },

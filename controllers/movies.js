@@ -3,6 +3,7 @@ import { ServerError } from '../errors/ServerError.js';
 import { NotFoundError } from '../errors/NotFoundError.js';
 import { BadRequestError } from '../errors/BadRequestError.js';
 import { ForbiddenError } from '../errors/ForbiddenError.js';
+import { errorMessages } from '../errors/messages.js';
 
 // возвращает все сохранённые текущим  пользователем фильмы
 export const getMovies = (req, res, next) => {
@@ -11,7 +12,7 @@ export const getMovies = (req, res, next) => {
       res.send({ data: movies });
     })
     .catch(() => {
-      next(new ServerError('Произошла ошибка на сервере'));
+      next(new ServerError(errorMessages.badRequest));
     });
 };
 
@@ -24,9 +25,9 @@ export const createMovie = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('createMovie Переданы некорректные данные'));
+        next(new BadRequestError(errorMessages.badRequest));
       } else {
-        next(new ServerError('Произошла ошибка на сервере'));
+        next(new ServerError(errorMessages.serverError));
       }
     });
 };
@@ -43,14 +44,14 @@ export const deleteMovieById = (req, res, next) => {
               res.send({ data: movie });
             })
             .catch(next);
-        } else next(new ForbiddenError('Удалить можно только свои фильмы'));
-      } else next(new NotFoundError('Фильм не найден'));
+        } else next(new ForbiddenError(errorMessages.movieForbidden));
+      } else next(new NotFoundError(errorMessages.movieNotFound));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError('Переданы некорректные данные'));
+        next(new BadRequestError(errorMessages.badRequest));
       } else {
-        next(new ServerError('Произошла ошибка на сервере'));
+        next(new ServerError(errorMessages.serverError));
       }
     });
 };

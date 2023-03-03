@@ -19,7 +19,7 @@ export const schemaObjectMovie = Joi.object({
   year: Joi.string().required(),
   description: Joi.string().required(),
   image: schemeURL.required(),
-  trailer: schemeURL.required(),
+  trailerLink: schemeURL.required(),
   nameRU: Joi.string().required(),
   nameEN: Joi.string().required(),
   thumbnail: schemeURL.required(),

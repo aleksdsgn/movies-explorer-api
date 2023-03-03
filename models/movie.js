@@ -31,7 +31,7 @@ const movieSchema = new mongoose.Schema({
       message: (props) => `${props.value} ${errorMessages.checkLink}`,
     },
   },
-  trailer: {
+  trailerLink: {
     type: String,
     required: true,
     validate: {
